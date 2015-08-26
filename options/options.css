@@ -1,0 +1,12 @@
+.countries label {
+    display: block;
+    height: 48px;
+    line-heigt: 48px !important;
+    
+    cursor: pointer;
+}
+
+.countries img {
+    height: 24px;
+    margin: 0 5px;
+}

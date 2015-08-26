@@ -21,6 +21,7 @@ body {
 }
 
 #content .price {
+    margin-top: 10px;
     font-size: 20px;
     font-weight: bold; 
 }
@@ -33,4 +34,9 @@ body {
 
 #content .price .price-new {
     font-size: 1.2em;
+}
+
+#content a {
+    margin-top: 5px;
+    cursor: pointer;
 }

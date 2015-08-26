@@ -35,7 +35,7 @@
             options.type = imageblob === undefined ? 'basic' : 'image';
             options.title = title;
             options.message = message;
-            options.iconUrl = "../images/icon.png";
+            options.iconUrl = "../images/icon-128.png";
 
             // Add an image if we use images
             if (options.type === 'image') {
