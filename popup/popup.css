@@ -1,0 +1,36 @@
+body {
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 100%;
+}
+
+#content {
+    width: 400px;
+    overflow: hidden;
+    
+    text-align: center;
+}
+
+#content h1 {
+    color: #3d7fba;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#content img {
+    max-width: 75%;
+}
+
+#content .price {
+    font-size: 20px;
+    font-weight: bold; 
+}
+
+#content .price .price-old {
+    color: #aaa;
+    font-size: .9em;
+    text-decoration: line-through;
+}
+
+#content .price .price-new {
+    font-size: 1.2em;
+}

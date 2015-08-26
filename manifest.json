@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+
+    "name": "iBOOD tracker",
+    "description": "Deze plugin geeft een kader weer met de laatste ibood actie wanneer deze wijzigt. Dit werkt ook tijdens een ibood hunt.",
+    "version": "Alpha-1",
+    "author": "Jeroen Deviaene",
+
+    "background": {
+        "scripts": [
+            "model/ibood.js",
+            "background/background.js"
+        ]  
+    },
+    "browser_action": {
+        "default_icon": "images/icon.png",
+        "default_popup": "popup/popup.html",
+        "default_title": "Laatste actie bekijken"
+    },
+    "permissions": [
+        "http://*.ibood.com/*",
+        "https://*.ibood.com/*",
+        "notifications"
+    ]
+}
