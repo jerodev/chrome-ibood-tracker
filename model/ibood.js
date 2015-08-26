@@ -1,6 +1,10 @@
 var ibood = {
     lastProduct: {},
     
+    
+    /**
+     *  Get the information of the current product
+     */
     getLatestProduct: function (callback) {
         
         // Create some variables
@@ -53,6 +57,9 @@ var ibood = {
     },
     
     
+    /**
+     *  Find out if a hunt is on the way
+     */
     isHunt: function (callback) {
         // Create some variables
         var url,
