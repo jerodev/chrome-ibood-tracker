@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>iBOOD Tracker settings</title>
+        <title>iBOOD Notifier settings</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/flatly/bootstrap.min.css" rel="stylesheet" />
         <link href="options.css" rel="stylesheet" />
         <script src="options.js"></script>
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="page-header">
                     <div class="col-xs-12">
-                        <h1>iBOOD Tracker settings</h1>
+                        <h1>iBOOD Notifier settings</h1>
                     </div>
                 </div>
                 <div class="col-xs-12">
@@ -30,6 +30,42 @@
                                     <img src="../images/countries/nl.svg" /> https://www.ibood.com/nl/nl/
                                 </label>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Timing</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3">Tijd tussen update controle in seconden</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" id="checkInterval" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3">Tijd tussen update controle in seconden tijdens hunt</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" id="checkIntervalHunt" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Over deze extentie</h3>
+                        </div>
+                        <div class="panel-body">
+                            Deze extentie is ontwikkeld door <a href="http://www.deviaene.eu" target="_blank">Jeroen Deviaene</a> om gemakkelijk de iBood hunt te 
+                            kunnen volgen tijdens het werken.<br />
+                            De extentie is volledig open source, bugs en idee&euml;n kunnen steeds gepost worden op de 
+                            <a href="https://github.com/jerodev/chrome-ibood-tracker" target="_blank">github repo</a>.
                         </div>
                     </div>
                 </div>

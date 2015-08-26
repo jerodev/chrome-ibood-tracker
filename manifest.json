@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
 
-    "name": "iBOOD tracker",
+    "name": "iBOOD notifier",
     "description": "Deze plugin geeft notificaties weer met de laatste ibood actie. Deze notificaties werken ook tijdens een ibood hunt.",
     "version": "1.0",
     "author": "Jeroen Deviaene",

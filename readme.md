@@ -1,4 +1,4 @@
-# iBOOD Tracker - Chrome extension
+# iBOOD Notifier - Chrome extension
 
 [![Build Status](https://travis-ci.org/jerodev/chrome-ibood-tracker.svg)](https://travis-ci.org/jerodev/chrome-ibood-tracker)
 
