@@ -4,7 +4,9 @@ node_js:
 install:
  - npm install jshint -g
 script:
- - jshint manifest.json
- - jshint popup/popup.js
  - jshint background/background.js
+ - jshint manifest.json
  - jshint model/ibood.js
+ - jshint model/settings.js
+ - jshint options/options.js
+ - jshint popup/popup.js

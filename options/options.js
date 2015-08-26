@@ -16,22 +16,24 @@
             item.checked = true;
             
             // When changing the country, save the settings
-            var i = 0, chk_country = document.querySelectorAll("input[name=country]");
-            for (i; i < chk_country.length; i++) {
-                chk_country[i].addEventListener(
-                    'change',
-                    function () {
-                        // Keep this setting
-                        chrome.extension.getBackgroundPage().settings.set('country', this.value);
+            var i = 0, 
+                chk_country = document.querySelectorAll(".list-group.countries")[0];
+            chk_country.addEventListener(
+                'click',
+                function () {
+                    // Find the selected item
+                    var chk = document.querySelectorAll(".list-group.countries input[name=country]:checked")[0];
+                    
+                    // Keep this setting
+                    chrome.extension.getBackgroundPage().settings.set('country', chk.value);
 
-                        // De-activate the previous node
-                        document.querySelectorAll(".countries .list-group-item.active")[0].className = "list-group-item";
+                    // De-activate the previous node
+                    document.querySelectorAll(".countries .list-group-item.active")[0].className = "list-group-item";
 
-                        // Activate this node
-                        this.parentElement.className = "list-group-item active";
-                    }
-                );
-            }
+                    // Activate this node
+                    chk.parentElement.className = "list-group-item active";
+                }
+            );
             
         });
         
