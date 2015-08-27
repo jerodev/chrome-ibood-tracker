@@ -8,7 +8,7 @@
         /**
          *  Get the information of the current product on iBOOD
          */
-        getLatestProduct: function (callback) {
+        getLatestProduct: function (callback, errorCallback) {
 
             // Create some variables
             var url,
@@ -20,6 +20,18 @@
                 // Build the url
                 url = "https://www.ibood.com/" + country + "/nl/";
 
+                // Wait at least 3 seconds before bothering the website again
+                if (window.ibood.lastProduct.scrape && 
+                    window.ibood.lastProduct.scrape.timestamp + 3 >= new Date().getTime() && 
+                    window.ibood.lastProduct.scrape.url === url) {
+                    
+                    // Send the existing data back
+                    callback(window.ibood.lastProduct);
+                    
+                    // Leave this function
+                    return;
+                }
+                
                 // Send the request
                 x.open('GET', url);
 
@@ -40,6 +52,12 @@
                     data.price_new = doc.querySelectorAll('.price .new-price')[0].innerHTML.replace(/<[^>]*>/g, "");
                     data.url = doc.querySelectorAll('.button-cta.buy a')[0].href;
                     data.isHunt = doc.querySelectorAll(".huntbeacon.homepage").length > 1;
+                    
+                    // Keep data about the last website scrape.
+                    data.scrape = {
+                        timestamp: new Date().getTime(),
+                        url: url
+                    };
 
                     // Send the data back to the caller
                     if (typeof callback === 'function') {
@@ -50,7 +68,14 @@
 
                 // Ajax error occured
                 x.onerror = function (e) {
-                    window.console.log('ajax error!', e);
+                    
+                    // Execute the error callback
+                    if (typeof callback === 'function' && lastProduct.hasOwnProperty('title')) {
+                        callback(lastProduct);
+                    } else if (typeof errorCallback === 'function') {
+                        errorCallback();
+                    }
+                    
                 };
 
                 // Send the ajaxRequest
@@ -70,7 +95,7 @@
                 x = new XMLHttpRequest();
 
             // Find out what the ibood link is we want to use
-            chrome.extension.getBackgroundPage().settings.get('country', function(country) {
+            chrome.extension.getBackgroundPage().settings.get('country', function (country) {
 
                 // Build the url
                 url = "https://www.ibood.com/" + country + "/nl/";

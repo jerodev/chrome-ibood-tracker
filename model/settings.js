@@ -28,8 +28,7 @@
                 // Does the key exist?
                 if (settings_obj.hasOwnProperty(key)) {
                     value = settings_obj[key];
-                }
-                else if (window.settings.defaultSettings.hasOwnProperty(key)) {
+                } else if (window.settings.defaultSettings.hasOwnProperty(key)) {
                     // If the value is null, check if it exists in the defaultSettings
                     value = window.settings.defaultSettings[key];
                 }

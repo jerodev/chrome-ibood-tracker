@@ -50,7 +50,12 @@
                 var value = this.value * 1000;
                 
                 // Write the value to the settings
-                chrome.extension.getBackgroundPage().settings.set('checkInterval', value);
+                if (value > 0) {
+                    chrome.extension.getBackgroundPage().settings.set('checkInterval', value);
+                } else {
+                    document.getElementById("checkInterval").value = 1;
+                    chrome.extension.getBackgroundPage().settings.set('checkInterval', 1);
+                }
                 
             });
         });
@@ -69,7 +74,12 @@
                 var value = this.value * 1000;
                 
                 // Write the value to the settings
-                chrome.extension.getBackgroundPage().settings.set('checkIntervalHunt', value);
+                if (value > 0) {
+                    chrome.extension.getBackgroundPage().settings.set('checkIntervalHunt', value);
+                } else {
+                    document.getElementById("checkIntervalHunt").value = 1;
+                    chrome.extension.getBackgroundPage().settings.set('checkIntervalHunt', 1);
+                }
                 
             });
         });
