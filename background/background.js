@@ -70,12 +70,17 @@
     // Scrape ibood for the first time
     doUpdateCheck();
     
-    // Get the correct time interval
-    window.settings.get('checkInterval' + (window.ibood.isHunt() ? 'Hunt' : ''), function (interval) {
-
-        // Start the update checker on the correct interval
-        setInterval(doUpdateCheck, interval);
-
+    // Check ibood to find out if a hunt is going on.
+    window.ibood.isHunt(function(isHunt){
+    
+        // Get the correct time interval
+        window.settings.get('checkInterval' + (isHunt ? 'Hunt' : ''), function(interval){
+        
+            // Start the update checker on the correct interval
+            setInterval(doUpdateCheck, interval);
+            
+        });
+        
     });
     
     
