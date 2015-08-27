@@ -2,5 +2,4 @@
     "globals": {
         "chrome": false
     }
-    "regex": true
 }
