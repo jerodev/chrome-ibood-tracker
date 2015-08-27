@@ -6,9 +6,10 @@
         
         // Default settings when no other settings are found
         defaultSettings: {
-            "country": "be",
             "checkInterval": 3e5,
-            "checkIntervalHunt": 1e4
+            "checkIntervalHunt": 1e4,
+            "country": "be",
+            "productAlertKeywords": []
         },
         
         // Local copy of the settings

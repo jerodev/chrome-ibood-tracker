@@ -16,7 +16,7 @@
         var error_el = document.querySelectorAll("#content .error")[0];
         
         // Add a message
-        error_el.text = message;
+        error_el.innerHTML = message;
     }
     
     

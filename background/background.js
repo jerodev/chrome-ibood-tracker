@@ -14,10 +14,32 @@
                 // Set the new data as current product
                 window.ibood.lastProduct = data;
                 
+                // If the title contains one of the productAlertKeywords, open the product page!
+                window.settings.get("productAlertKeywords", function (keywords) {
+                    
+                    // Loop over all keywords and check if the title contains them
+                    for (var i in keywords) {
+                        
+                        if (data.title.match("/" + keywords[i] + "/i")) {
+                            
+                            // FOUND! Open a new tab!
+                            window.ibood.openInTab();
+                            
+                            // Stop this loop.
+                            break;
+                        }
+                        
+                    }
+                    
+                });
+                
                 // If there is a hunt ongoing, set the browserAction badge
                 if (data.isHunt) {
                     chrome.browserAction.setBadgeText({ "text": "Hunt!" });
                     chrome.browserAction.setBadgeBackgroundColor({ "color": "#F57F27" });
+                } else {
+                    // Make sure we remove the badge when the hunt is over
+                    chrome.browserAction.setBadgeText({ "text": "" });
                 }
 
                 // Display a message with the newest product

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>iBOOD Notifier settings</title>
+        <title>iBOOD Notifier instellingen</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/flatly/bootstrap.min.css" rel="stylesheet" />
         <link href="options.css" rel="stylesheet" />
         <script src="options.js"></script>
@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="page-header">
                     <div class="col-xs-12">
-                        <h1>iBOOD Notifier settings</h1>
+                        <h1>iBOOD Notifier instellingen</h1>
                     </div>
                 </div>
                 <div class="col-xs-12">
@@ -50,6 +50,23 @@
                                     <label class="col-sm-3">Tijd tussen update controle in seconden tijdens hunt</label>
                                     <div class="col-sm-9">
                                         <input type="number" id="checkIntervalHunt" class="form-control" min="0" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Snelle bestelling</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-xs-12">Wanneer de naam van een product een van deze kernwoorden bevat zal de bestelpagina automatisch geopend worden. Kernwoorden kunnen gescheiden worden door een komma(,).</label>
+                                    <div class="col-xs-12">
+                                        <input type="text" id="productAlertKeywords" class="form-control" placeholder="groote doos"  />
                                     </div>
                                 </div>
                             </div>
