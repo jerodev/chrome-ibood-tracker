@@ -6,13 +6,13 @@
      *  Check if a new product has been introduced
      */
     function doUpdateCheck() {
-        ibood.getLatestProduct(function (data) {
+        window.ibood.getLatestProduct(function (data) {
 
             // Is there a new product?
-            if (data.title !== ibood.lastProduct.title) {
+            if (data.title !== window.ibood.lastProduct.title) {
                 
                 // Set the new data as current product
-                ibood.lastProduct = data;
+                window.ibood.lastProduct = data;
 
                 // Display a message with the newest product
                 sendNotification(data.title, data.price_new, data.image);
@@ -43,7 +43,7 @@
             }
             
             // Display the notification
-            var notif = chrome.notifications.create(options);
+            chrome.notifications.create(options);
         };
         
         // If there is an image, we should load it using xhr.
@@ -65,22 +65,17 @@
     }
     
     // Set an event listener for notifications
-    chrome.notifications.onClicked.addListener(ibood.openInTab);
+    chrome.notifications.onClicked.addListener(window.ibood.openInTab);
     
     // Scrape ibood for the first time
     doUpdateCheck();
     
-    // Check ibood to find out if a hunt is going on.
-    ibood.isHunt(function(isHunt){
-    
-        // Get the correct time interval
-        window.settings.get('checkInterval' + (isHunt ? 'Hunt' : ''), function(interval){
-        
-            // Start the update checker on the correct interval
-            setInterval(doUpdateCheck, interval);
-            
-        });
-        
+    // Get the correct time interval
+    window.settings.get('checkInterval' + (window.ibood.isHunt() ? 'Hunt' : ''), function (interval) {
+
+        // Start the update checker on the correct interval
+        setInterval(doUpdateCheck, interval);
+
     });
     
     
