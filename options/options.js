@@ -45,7 +45,7 @@
             document.getElementById("checkInterval").value = data / 1000;
 
             // Add an event listener to check for changes in value
-            document.getElementById("checkInterval").addEventListener("change", function () {
+            document.getElementById("checkInterval").addEventListener("keyup", function () {
 
                 // Get the value
                 var value = this.value * 1000;
@@ -69,7 +69,7 @@
             document.getElementById("checkIntervalHunt").value = data / 1000;
 
             // Add an event listener to check for changes in value
-            document.getElementById("checkIntervalHunt").addEventListener("change", function () {
+            document.getElementById("checkIntervalHunt").addEventListener("keyup", function () {
 
                 // Get the value
                 var value = this.value * 1000;
@@ -93,7 +93,7 @@
             if (document.getElementById('productAlertKeywords') === null) {
                 return false;
             }
-
+            
             // Fill in the field with the settings data.
             if (data && typeof data === "object") {
                 document.getElementById('productAlertKeywords').value = data.join(",");

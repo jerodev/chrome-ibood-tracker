@@ -1,3 +1,5 @@
+/* global chrome */
+
 (function () {
 
     "use strict";
@@ -21,7 +23,7 @@
                 url = "https://www.ibood.com/" + country + "/nl/";
 
                 // Wait at least 3 seconds before bothering the website again
-                if (window.ibood.lastProduct.scrape && 
+                if (window.ibood.lastProduct.scrape &&
                     window.ibood.lastProduct.scrape.timestamp + 3 >= new Date().getTime() && 
                     window.ibood.lastProduct.scrape.url === url) {
                     

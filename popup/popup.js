@@ -1,6 +1,8 @@
+/* global chrome */
+
 (function () {
-    "use strict";
     
+    "use strict";
     
     /**
      *  There was an ajax error when requesting new products, display this to the user

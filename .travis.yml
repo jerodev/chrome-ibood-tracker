@@ -5,6 +5,7 @@ install:
  - npm install jshint -g
 script:
  - jshint background/background.js
+ - jshint redirect-to-order.js
  - jshint manifest.json
  - jshint model/ibood.js
  - jshint model/settings.js
