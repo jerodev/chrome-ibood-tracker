@@ -150,8 +150,7 @@
 
                 chrome.tabs.create({
                     active: true,
-                    url: 'http://www.ibood.com/' + country + '/nl/ibood10y/198b8da6529c3053317859deba4de237'
-                    // url: window.ibood.lastProduct.url
+                    url: window.ibood.lastProduct.url
                 });
 
             });
