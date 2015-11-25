@@ -82,7 +82,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open('GET', image, true);
             xhr.responseType = 'blob';
-            xhr.onload = function (e) {
+            xhr.onload = function () {
                 var imageblob = window.URL.createObjectURL(this.response);
 
                 showNotification(title, message, imageblob);

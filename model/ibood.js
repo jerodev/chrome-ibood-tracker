@@ -3,7 +3,7 @@
 (function () {
 
     "use strict";
-    
+
     window.ibood = {
         lastProduct: {},
 
@@ -24,16 +24,16 @@
 
                 // Wait at least 3 seconds before bothering the website again
                 if (window.ibood.lastProduct.scrape &&
-                    window.ibood.lastProduct.scrape.timestamp + 3 >= new Date().getTime() && 
+                    window.ibood.lastProduct.scrape.timestamp + 3 >= new Date().getTime() &&
                     window.ibood.lastProduct.scrape.url === url) {
-                    
+
                     // Send the existing data back
                     callback(window.ibood.lastProduct);
-                    
+
                     // Leave this function
                     return;
                 }
-                
+
                 // Send the request
                 x.open('GET', url);
 
@@ -54,7 +54,7 @@
                     data.price_new = doc.querySelectorAll('.price .new-price')[0].innerHTML.replace(/<[^>]*>/g, "");
                     data.url = doc.querySelectorAll('.button-cta.buy a')[0].href;
                     data.isHunt = doc.querySelectorAll(".huntbeacon.homepage").length > 1;
-                    
+
                     // Keep data about the last website scrape.
                     data.scrape = {
                         timestamp: new Date().getTime(),
@@ -69,15 +69,15 @@
                 };
 
                 // Ajax error occured
-                x.onerror = function (e) {
-                    
+                x.onerror = function () {
+
                     // Execute the error callback
-                    if (typeof callback === 'function' && lastProduct.hasOwnProperty('title')) {
-                        callback(lastProduct);
+                    if (typeof callback === 'function' && window.ibood.lastProduct.hasOwnProperty('title')) {
+                        callback(window.ibood.lastProduct);
                     } else if (typeof errorCallback === 'function') {
                         errorCallback();
                     }
-                    
+
                 };
 
                 // Send the ajaxRequest
@@ -141,12 +141,18 @@
          *  Open the current product in a new tab in the browser
          */
         openInTab: function () {
-            chrome.tabs.create({
-                active: true,
-                url: window.ibood.lastProduct.url
+
+            // Find out what the ibood link is we want to use
+            chrome.extension.getBackgroundPage().settings.get('country', function (country) {
+
+                chrome.tabs.create({
+                    active: true,
+                    url: 'http://www.ibood.com/' + country + '/nl/ibood10y/198b8da6529c3053317859deba4de237' //window.ibood.lastProduct.url
+                });
+
             });
         }
 
     };
-    
+
 }());
