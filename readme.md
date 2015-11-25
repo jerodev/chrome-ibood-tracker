@@ -8,7 +8,7 @@ zal de plugin een notification weergeven met daar in het nieuwe product.
 
 De plugin werkt met zowel de Belgische als de Nederlandse iBOOD.
 
-Deze plugin is compatibel met de huidige(25/11) iBOOD Hunt.
+Deze plugin is compatibel met de laatste(26/11/2015) iBOOD Hunt.
 
 
 ## Screenshot

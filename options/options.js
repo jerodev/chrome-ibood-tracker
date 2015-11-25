@@ -105,8 +105,18 @@
                 // Get the value
                 var value = this.value;
 
-                // Split the value into an array
-                value = value.split(",");
+                // Make sure a value is present
+                if (value.length > 0 && !value.match(/\s+/)) {
+
+                    // Split the value into an array
+                    value = value.split(",");
+
+                } else {
+
+                    // Reset value to an empty array
+                    value = [];
+
+                }
 
                 // Write the value to the settings
                 chrome.extension.getBackgroundPage().settings.set('productAlertKeywords', value);
