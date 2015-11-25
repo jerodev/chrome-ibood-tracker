@@ -100,16 +100,16 @@
             }
 
             // Add an event listener to check for changes in value
-            document.getElementById("productAlertKeywords").addEventListener("keyup", function () {
+            document.getElementById("productAlertKeywords").addEventListener("keyup", function (e) {
 
                 // Get the value
-                var value = this.value;
+                var value = e.currentTarget.value;
 
                 // Make sure a value is present
-                if (value.length > 0 && !value.match(/\s+/)) {
+                if (value.length > 0 && !value.match(/^\s+$/)) {
 
                     // Split the value into an array
-                    value = value.split(",");
+                    value = value.split(/\s*,\s*/);
 
                 } else {
 
