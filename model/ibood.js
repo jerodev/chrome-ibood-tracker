@@ -22,6 +22,9 @@
                 // Build the url
                 url = "https://www.ibood.com/" + country + "/nl/";
 
+                // Add cache bust
+                url += "?" + (new Date().getTime());
+
                 // Wait at least 3 seconds before bothering the website again
                 if (window.ibood.lastProduct.scrape &&
                     window.ibood.lastProduct.scrape.timestamp + 3 >= new Date().getTime() &&
@@ -147,7 +150,8 @@
 
                 chrome.tabs.create({
                     active: true,
-                    url: 'http://www.ibood.com/' + country + '/nl/ibood10y/198b8da6529c3053317859deba4de237' //window.ibood.lastProduct.url
+                    url: 'http://www.ibood.com/' + country + '/nl/ibood10y/198b8da6529c3053317859deba4de237'
+                    // url: window.ibood.lastProduct.url
                 });
 
             });
