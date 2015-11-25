@@ -6,59 +6,65 @@
         <link href="options.css" rel="stylesheet" />
         <script src="options.js"></script>
     </head>
-    <body>
+    <body data-spy="scroll" data-target="#nav" id="country">
         <div class="container">
             <div class="row">
-                <div class="page-header">
-                    <div class="col-xs-12">
-                        <h1>iBOOD Notifier instellingen</h1>
+                <div class="col-xs-12">
+                    <div class="page-header">
+                        <div class="col-xs-12">
+                            <h1>iBOOD Notifier instellingen</h1>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Land instellingen</h3>
+                    <div class="row row-flex">
+                        <div class="col-xs-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Land instellingen</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="list-group countries">
+                                        <label class="list-group-item">
+                                            <input type="radio" name="country" value="be" />
+                                            <img src="../images/countries/be.svg" /> https://www.ibood.com/be/nl/
+                                        </label>
+                                        <label class="list-group-item">
+                                            <input type="radio" name="country" value="nl" />
+                                            <img src="../images/countries/nl.svg" /> https://www.ibood.com/nl/nl/
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <div class="list-group countries">
-                                <label class="list-group-item">
-                                    <input type="radio" name="country" value="be" />
-                                    <img src="../images/countries/be.svg" /> https://www.ibood.com/be/nl/
-                                </label>
-                                <label class="list-group-item">
-                                    <input type="radio" name="country" value="nl" />
-                                    <img src="../images/countries/nl.svg" /> https://www.ibood.com/nl/nl/
-                                </label>
+                        <div class="col-xs-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="timing">
+                                    <h3 class="panel-title">Timing</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-xs-8">Tijd tussen update controle in seconden</label>
+                                            <div class="col-xs-4">
+                                                <input type="number" id="checkInterval" class="form-control" min="0" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-xs-8">Tijd tussen update controle in seconden tijdens hunt</label>
+                                            <div class="col-xs-4">
+                                                <input type="number" id="checkIntervalHunt" class="form-control" min="0" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Timing</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-3">Tijd tussen update controle in seconden</label>
-                                    <div class="col-sm-9">
-                                        <input type="number" id="checkInterval" class="form-control" min="0" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3">Tijd tussen update controle in seconden tijdens hunt</label>
-                                    <div class="col-sm-9">
-                                        <input type="number" id="checkIntervalHunt" class="form-control" min="0" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" id="keywords">
                             <h3 class="panel-title">Snelle bestelling</h3>
                         </div>
                         <div class="panel-body">
@@ -66,7 +72,7 @@
                                 <div class="form-group">
                                     <label class="col-xs-12">Wanneer de naam van een product een van deze kernwoorden bevat zal de productpagina automatisch geopend worden. Kernwoorden kunnen gescheiden worden door een komma(,).</label>
                                     <div class="col-xs-12">
-                                        <input type="text" id="productAlertKeywords" class="form-control" placeholder="groote doos"  />
+                                        <textarea id="productAlertKeywords" class="form-control" placeholder="groote doos"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +81,7 @@
                 </div>
                 <div class="col-xs-12">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">
+                        <div class="panel-heading" id="about">
                             <h3 class="panel-title">Over deze extentie</h3>
                         </div>
                         <div class="panel-body">

@@ -93,14 +93,14 @@
             if (document.getElementById('productAlertKeywords') === null) {
                 return false;
             }
-            
+
             // Fill in the field with the settings data.
             if (data && typeof data === "object") {
                 document.getElementById('productAlertKeywords').value = data.join(",");
             }
 
             // Add an event listener to check for changes in value
-            document.getElementById("productAlertKeywords").addEventListener("change", function () {
+            document.getElementById("productAlertKeywords").addEventListener("keyup", function () {
 
                 // Get the value
                 var value = this.value;
@@ -121,6 +121,31 @@
      *  Start here!
      */
     document.addEventListener('DOMContentLoaded', function () {
+
+		// Set the height of flex rows
+		var rows = document.querySelectorAll('.row-flex');
+		for (var i = 0; i < rows.length; i++) {
+
+			// Get the current row
+			var row = rows[i];
+			var panels = row.querySelectorAll('.panel-body');
+
+			// Find the longest panel-body
+			var height = 0;
+			for (var j = 0; j < panels.length; j++) {
+				var pheight = panels[j].clientHeight;
+
+				if (pheight > height) {
+					height = pheight;
+				}
+			}
+
+			// Set the height for all panels
+			for (var j = 0; j < panels.length; j++) {
+				panels[j].style.height = height + "px";
+			}
+
+		}
 
         // Load the settings
         loadSettings();

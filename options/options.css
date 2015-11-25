@@ -1,8 +1,6 @@
 .countries label {
     display: block;
     height: 48px;
-    line-heigt: 48px !important;
-
     cursor: pointer;
 }
 
@@ -17,4 +15,9 @@
 
 .badges section {
     margin-right: 10px;
+}
+
+textarea {
+    width: 100%;
+    max-width: 100%;
 }
