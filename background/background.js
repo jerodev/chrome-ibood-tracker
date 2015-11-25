@@ -19,17 +19,11 @@
                 // If the title contains one of the productAlertKeywords, open the product page!
                 window.settings.get("productAlertKeywords", function (keywords) {
 
-                    // Loop over all keywords and check if the title contains them
-                    for (var i in keywords) {
+                    // Does one of the keywords match the given product?
+                    if (keywords.length > 0 && !!data.title.match(new RegExp(keywords.join("|"), "i"))) {
 
-                        if (data.title.match("/" + keywords[i] + "/i")) {
-
-                            // FOUND! Open a new tab!
-                            window.ibood.openInTab();
-
-                            // Stop this loop.
-                            break;
-                        }
+                        // FOUND! Open a new tab!
+                        window.ibood.openInTab();
 
                     }
 
