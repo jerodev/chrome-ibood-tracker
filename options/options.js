@@ -131,8 +131,8 @@
 			var panels = row.querySelectorAll('.panel-body');
 
 			// Find the longest panel-body
-			var height = 0;
-			for (var j = 0; j < panels.length; j++) {
+			var height = 0, j;
+			for (j = 0; j < panels.length; j++) {
 				var pheight = panels[j].clientHeight;
 
 				if (pheight > height) {
@@ -141,7 +141,7 @@
 			}
 
 			// Set the height for all panels
-			for (var j = 0; j < panels.length; j++) {
+			for (j = 0; j < panels.length; j++) {
 				panels[j].style.height = height + "px";
 			}
 
