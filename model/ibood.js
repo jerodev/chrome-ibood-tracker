@@ -20,7 +20,7 @@
             chrome.extension.getBackgroundPage().settings.get('country', function (country) {
 
                 // Build the url
-                url = "https://www.ibood.com/" + country + "/nl/";
+                url = "http://feeds.ibood.com/" + country + "/offer.json";
 
                 // Add cache bust
                 url += "?" + (new Date().getTime());
@@ -44,29 +44,32 @@
                 x.onload = function () {
 
                     // Create variables
-                    var data = {},
-                        doc = document.implementation.createHTMLDocument("example");
+                    var data = JSON.parse(x.responseText),
+                        offer = {};
 
-                    // Parse the DOM
-                    doc.documentElement.innerHTML = x.responseText;
+                    // Parse the price and image data
+                    var priceData = document.implementation.createHTMLDocument("priceData");
+                        priceData.documentElement.innerHTML = data.Price;
+                    var imageData = document.implementation.createHTMLDocument("imageData");
+                        imageData.documentElement.innerHTML = data.Image;
 
                     // Scrape required data from website
-                    data.title = doc.querySelectorAll('.offer-title .long')[0].innerHTML;
-                    data.image = "http:" + doc.querySelectorAll('.offer-img img')[0].getAttribute('data-mobile');
-                    data.price_old = doc.querySelectorAll('.price .old-price')[0].innerHTML.replace(/<[^>]*>/g, "");
-                    data.price_new = doc.querySelectorAll('.price .new-price')[0].innerHTML.replace(/<[^>]*>/g, "");
-                    data.url = doc.querySelectorAll('.button-cta.buy a')[0].href;
-                    data.isHunt = doc.querySelectorAll(".huntbeacon.homepage").length > 1;
+                    offer.id = data.Id;
+                    offer.title = data.ShortTitle;
+                    offer.image = "http:" + imageData.querySelectorAll('img')[0].getAttribute('data-mobile');
+                    offer.price_old = priceData.querySelectorAll('.old-price')[0].innerHTML.replace(/<[^>]*>/g, "");
+                    offer.price_new = priceData.querySelectorAll('.price .new-price')[0].innerHTML.replace(/<[^>]*>/g, "");
+                    offer.url = data.Permalink;
 
                     // Keep data about the last website scrape.
-                    data.scrape = {
+                    offer.scrape = {
                         timestamp: new Date().getTime(),
                         url: url
                     };
 
                     // Send the data back to the caller
                     if (typeof callback === 'function') {
-                        callback(data);
+                        callback(offer);
                     }
 
                 };
@@ -146,14 +149,11 @@
         openInTab: function () {
 
             // Find out what the ibood link is we want to use
-            chrome.extension.getBackgroundPage().settings.get('country', function (country) {
-
-                chrome.tabs.create({
-                    active: true,
-                    url: window.ibood.lastProduct.url
-                });
-
+            chrome.tabs.create({
+                active: true,
+                url: window.ibood.lastProduct.url
             });
+
         }
 
     };

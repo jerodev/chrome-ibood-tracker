@@ -30,13 +30,17 @@
                 });
 
                 // If there is a hunt ongoing, set the browserAction badge
-                if (data.isHunt) {
-                    chrome.browserAction.setBadgeText({ "text": "Hunt!" });
-                    chrome.browserAction.setBadgeBackgroundColor({ "color": "#F57F27" });
-                } else {
-                    // Make sure we remove the badge when the hunt is over
-                    chrome.browserAction.setBadgeText({ "text": "" });
-                }
+                window.ibood.isHunt(function (isHunt) {
+
+                    if (isHunt) {
+                        chrome.browserAction.setBadgeText({ "text": "Hunt!" });
+                        chrome.browserAction.setBadgeBackgroundColor({ "color": "#F57F27" });
+                    } else {
+                        // Make sure we remove the badge when the hunt is over
+                        chrome.browserAction.setBadgeText({ "text": "" });
+                    }
+
+                });
 
                 // Display a message with the newest product
                 sendNotification(data.title, data.price_new, data.image);
@@ -87,6 +91,7 @@
             showNotification(title, message);
         }
     }
+
 
     // Set an event listener for notifications
     chrome.notifications.onClicked.addListener(window.ibood.openInTab);

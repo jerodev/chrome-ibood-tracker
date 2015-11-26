@@ -42,13 +42,13 @@
         chrome.extension.getBackgroundPage().settings.get('checkInterval', function (data) {
 
             // Fill in the field with the settings data.
-            document.getElementById("checkInterval").value = data / 1000;
+            document.getElementById("checkInterval").value = data / 1e3;
 
             // Add an event listener to check for changes in value
-            document.getElementById("checkInterval").addEventListener("keyup", function () {
+            document.getElementById("checkInterval").addEventListener("keyup", function (e) {
 
                 // Get the value
-                var value = this.value * 1000;
+                var value = e.currentTarget.value * 1e3;
 
                 // Write the value to the settings
                 if (value > 0) {
@@ -66,13 +66,13 @@
         chrome.extension.getBackgroundPage().settings.get('checkIntervalHunt', function (data) {
 
             // Fill in the field with the settings data.
-            document.getElementById("checkIntervalHunt").value = data / 1000;
+            document.getElementById("checkIntervalHunt").value = data / 1e3;
 
             // Add an event listener to check for changes in value
-            document.getElementById("checkIntervalHunt").addEventListener("keyup", function () {
+            document.getElementById("checkIntervalHunt").addEventListener("keyup", function (e) {
 
                 // Get the value
-                var value = this.value * 1000;
+                var value = e.currentTarget.value * 1e3;
 
                 // Write the value to the settings
                 if (value > 0) {
@@ -126,7 +126,7 @@
 
 
         // Set the version number
-        if (typeof chrome.runtime.getManifest === 'function') {
+        if (document.getElementById('versionNumber') !== null && typeof chrome.runtime.getManifest === 'function') {
 
             // Get the manifest object
             var manifest = chrome.runtime.getManifest();
@@ -147,18 +147,18 @@
 		var rows = document.querySelectorAll('.row-flex');
 		for (var i = 0; i < rows.length; i++) {
 
-			// Get the current row
-			var row = rows[i];
-			var panels = row.querySelectorAll('.panel-body');
+			// Find the panels in this row
+			var panels = rows[i].querySelectorAll('.panel-body');
 
 			// Find the longest panel-body
 			var height = 0, j;
 			for (j = 0; j < panels.length; j++) {
-				var pheight = panels[j].clientHeight;
 
+				var pheight = panels[j].clientHeight;
 				if (pheight > height) {
 					height = pheight;
 				}
+
 			}
 
 			// Set the height for all panels
@@ -173,4 +173,4 @@
 
     });
 
-}());
+} ());
