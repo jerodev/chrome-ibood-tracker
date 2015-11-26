@@ -21,3 +21,40 @@ textarea {
     width: 100%;
     max-width: 100%;
 }
+
+#restartNotification {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+    max-height: 0;
+    overflow: hidden;
+
+    background-color: #C14134;
+    color: #411612;
+    text-align: center;
+
+    transition: max-height .3s;
+}
+
+#restartNotification.visible {
+    border-bottom: 1px solid #A7392D;
+    max-height: 40px !important;
+}
+
+#restartNotification .btn {
+    position: relative;
+    top: -2px;
+
+    line-height: 1em;
+    margin-left: 15px;
+    padding: 5px;
+
+    background-color: #411612;
+    border-color: #411612;
+}

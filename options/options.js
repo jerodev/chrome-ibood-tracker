@@ -38,14 +38,16 @@
 
         });
 
+
         // Get the time interval to check for updates
         chrome.extension.getBackgroundPage().settings.get('checkInterval', function (data) {
 
             // Fill in the field with the settings data.
             document.getElementById("checkInterval").value = data / 1e3;
 
-            // Add an event listener to check for changes in value
-            document.getElementById("checkInterval").addEventListener("keyup", function (e) {
+
+            // Function for saving the interval
+            var saveInterval = function (e) {
 
                 // Get the value
                 var value = e.currentTarget.value * 1e3;
@@ -58,7 +60,15 @@
                     chrome.extension.getBackgroundPage().settings.set('checkInterval', 1);
                 }
 
-            });
+                // Display the restart notification
+                showRestartNotification();
+
+            };
+
+
+            // Add an event listener to check for changes in value
+            document.getElementById("checkInterval").addEventListener("keyup", saveInterval);
+            document.getElementById("checkInterval").addEventListener("change", saveInterval);
         });
 
 
@@ -68,8 +78,9 @@
             // Fill in the field with the settings data.
             document.getElementById("checkIntervalHunt").value = data / 1e3;
 
-            // Add an event listener to check for changes in value
-            document.getElementById("checkIntervalHunt").addEventListener("keyup", function (e) {
+
+            // Function for saving updated version
+            var saveIntervalHunt = function (e) {
 
                 // Get the value
                 var value = e.currentTarget.value * 1e3;
@@ -82,7 +93,15 @@
                     chrome.extension.getBackgroundPage().settings.set('checkIntervalHunt', 1);
                 }
 
-            });
+                // Display the restart notification
+                showRestartNotification();
+
+            };
+
+
+            // Add an event listener to check for changes in value
+            document.getElementById("checkIntervalHunt").addEventListener("keyup", saveIntervalHunt);
+            document.getElementById("checkIntervalHunt").addEventListener("change", saveIntervalHunt);
         });
 
 
@@ -135,6 +154,34 @@
             document.getElementById('versionNumber').innerHTML = "v" + manifest.version;
 
         }
+
+    }
+
+
+    /**
+     *  Display a message to restart the extension
+     */
+    function showRestartNotification() {
+
+        // Find the notification and show it
+        if (document.getElementById("restartNotification") !== null) {
+
+            // Add the event listener for restarting the application
+            document.querySelectorAll("#restartNotification .btn")[0].addEventListener(
+                "click",
+                function () {
+
+                    // Restart the extension
+                    chrome.runtime.reload();
+
+                },
+                false
+            );
+
+            // Actualy show the element
+            document.getElementById("restartNotification").className = "visible";
+        }
+
     }
 
 
