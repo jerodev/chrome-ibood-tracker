@@ -4,7 +4,8 @@
   "description": "Deze plugin geeft notificaties weer met de laatste ibood actie. Deze notificaties werken ook tijdens een ibood hunt.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test-jshint": "jshint **/*.js",
+    "test-mocha": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/jerodev/chrome-ibood-tracker#readme",
   "dependencies": {
     "expect.js": "^0.3.1",
+    "jshint": "^2.8.0",
     "mocha": "^2.3.4",
     "mock-browser": "^0.91.34",
     "xmlhttprequest": "^1.8.0"
