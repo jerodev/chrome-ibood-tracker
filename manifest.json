@@ -21,11 +21,13 @@
             "background/background.js"
         ]
     },
+
     "browser_action": {
         "default_icon": "images/icon-48.png",
         "default_popup": "popup/popup.html",
         "default_title": "Laatste actie bekijken"
     },
+
     "permissions": [
         "http://*.ibood.com/*",
         "https://*.ibood.com/*",

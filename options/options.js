@@ -124,6 +124,17 @@
             });
         });
 
+
+        // Set the version number
+        if (typeof chrome.runtime.getManifest === 'function') {
+
+            // Get the manifest object
+            var manifest = chrome.runtime.getManifest();
+
+            // Display the version number
+            document.getElementById('versionNumber').innerHTML = "v" + manifest.version;
+
+        }
     }
 
 
