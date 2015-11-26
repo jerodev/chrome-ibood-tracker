@@ -1,0 +1,29 @@
+{
+  "name": "chrome-ibood-tracker",
+  "version": "1.0.1",
+  "description": "Deze plugin geeft notificaties weer met de laatste ibood actie. Deze notificaties werken ook tijdens een ibood hunt.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerodev/chrome-ibood-tracker.git"
+  },
+  "keywords": [
+    "ibood",
+    "hunt"
+  ],
+  "author": "Jeroen Deviaene",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jerodev/chrome-ibood-tracker/issues"
+  },
+  "homepage": "https://github.com/jerodev/chrome-ibood-tracker#readme",
+  "dependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.3.4",
+    "mock-browser": "^0.91.34",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

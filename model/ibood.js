@@ -158,4 +158,9 @@
 
     };
 
+    // How do we communicate the settings object?
+    if (typeof window === 'undefined' || window.mocha === true) {
+        module.exports = window.ibood;
+    }
+
 } ());

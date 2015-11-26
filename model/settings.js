@@ -11,7 +11,8 @@
             "checkInterval": 3e5,
             "checkIntervalHunt": 8e3,
             "country": "be",
-            "productAlertKeywords": []
+            "productAlertKeywords": [],
+            "showHuntAvailability": false
         },
 
         // Local copy of the settings
@@ -125,4 +126,9 @@
 
     };
 
-}());
+    // How do we communicate the settings object?
+    if (typeof window === 'undefined' || window.mocha === true) {
+        module.exports = window.settings;
+    }
+
+} ());
