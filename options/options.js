@@ -144,6 +144,32 @@
         });
 
 
+        // Get the Product alert Direct order
+        chrome.extension.getBackgroundPage().settings.get('productAlertDirectOrder', function (data) {
+
+            // If the checkbox is not available, don't bother!
+            if (document.getElementById('productAlertDirectOrder') === null) {
+                return false;
+            }
+
+            // Fill in the field with the settings data.
+            if (data && typeof data === "boolean") {
+                document.getElementById('productAlertDirectOrder').checked = data;
+            }
+
+            // Add an event listener to check for changes in value
+            document.getElementById("productAlertDirectOrder").addEventListener("change", function (e) {
+
+                // Write the value to the settings
+                chrome.extension.getBackgroundPage().settings.set(
+                    'productAlertDirectOrder',
+                    e.currentTarget.checked
+                );
+
+            });
+        });
+
+
         // Set the version number
         if (document.getElementById('versionNumber') !== null && typeof chrome.runtime.getManifest === 'function') {
 

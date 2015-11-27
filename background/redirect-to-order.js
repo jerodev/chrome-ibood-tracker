@@ -4,8 +4,8 @@
 
     "use strict";
 
-    // Get the current offer data
-    chrome.extension.getBackgroundPage().ibood.getLatestProduct(function (data) {
+    // Wait for the dom to load
+    document.addEventListener("DOMContentLoaded", function() {
 
         // Get the users country
         chrome.extension.getBackgroundPage().settings.get('country', function (country) {
@@ -17,12 +17,16 @@
             document.querySelectorAll("form")[0].setAttribute("action", url);
 
             // Add the offer id
-            document.querySelectorAll("form input[name=offerId]")[0].value = data.offerId;
+            document.querySelectorAll("form input[name=offerId]")[0].value =
+                chrome.extension.getBackgroundPage().ibood.lastProduct.id;
 
-            // TODO: find a way to find the productId
+            // Add the product id
+            document.querySelectorAll("form input[name=productId]")[0].value =
+                chrome.extension.getBackgroundPage().ibood.lastProduct.productId;
 
             // Submit the form!
             document.querySelectorAll("form")[0].submit();
+
         });
 
     });

@@ -154,6 +154,47 @@
                 url: window.ibood.lastProduct.url
             });
 
+        },
+
+
+        /**
+         *  Try opening the order page directly
+         */
+        openOrderPage: function () {
+
+            // Load the product page using xhr to find the product id
+            var x = new XMLHttpRequest();
+            x.open('GET', window.ibood.lastProduct.url);
+
+            // Response has been received!
+            x.onload = function () {
+
+                // Parse the response html
+                var html = document.implementation.createHTMLDocument("html");
+                html.documentElement.innerHTML = x.responseText;
+
+                // Get the product id
+                window.ibood.lastProduct.productId = html.getElementById("productId").value;
+
+                // Create a virtual form to submit
+                chrome.tabs.create({
+                    active: true,
+                    url: chrome.extension.getURL('background/redirect-to-order.html')
+                });
+
+            };
+
+            // Ajax error occured
+            x.onerror = function () {
+
+                // Open the current product page
+                window.ibood.openInTab();
+
+            };
+
+            // Send the ajaxRequest
+            x.send();
+
         }
 
     };

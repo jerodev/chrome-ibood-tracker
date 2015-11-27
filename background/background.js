@@ -22,8 +22,23 @@
                     // Does one of the keywords match the given product?
                     if (keywords.length > 0 && !!data.title.match(new RegExp(keywords.join("|"), "i"))) {
 
-                        // FOUND! Open a new tab!
-                        window.ibood.openInTab();
+                        // FOUND! What page do we open?!
+                        chrome.extension.getBackgroundPage().settings.get('productAlertDirectOrder', function (data) {
+
+                            if (data) {
+
+                                // Try loading the order page directly
+                                window.ibood.openOrderPage();
+
+                            } else {
+
+                                // Simply open the product page
+                                window.ibood.openInTab();
+
+                            }
+
+                        });
+
 
                     }
 
