@@ -55,6 +55,11 @@
      */
     function sendNotification(title, message, image) {
 
+        // If the computer is locked, we don't send any notifications
+        if (window.computer && window.computer.isLocked) {
+            return false;
+        }
+
         // Create a callback to show the notification
         var showNotification = function (title, message, imageblob) {
 

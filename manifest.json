@@ -16,6 +16,7 @@
 
     "background": {
         "scripts": [
+            "model/computer.js",
             "model/ibood.js",
             "model/settings.js",
             "background/background.js"
@@ -31,6 +32,7 @@
     "permissions": [
         "http://*.ibood.com/*",
         "https://*.ibood.com/*",
+        "idle",
         "notifications",
         "storage"
     ]
