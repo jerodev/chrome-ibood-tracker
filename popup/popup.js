@@ -37,6 +37,12 @@
             document.querySelectorAll("#content .price-old")[0].innerHTML = data.price_old;
             document.querySelectorAll("#content .price-new")[0].innerHTML = data.price_new;
 
+            // Add the stock if it is available
+            if (data.stock) {
+                document.querySelectorAll('.stock')[0].className = 'stock visible';
+                document.querySelectorAll('.stock .bar .value')[0].style.width = data.stock + '%';
+            }
+
             // Reset click event on pop-up
             document.querySelectorAll("#content a")[0].removeEventListener(
                 'click',

@@ -62,6 +62,37 @@ describe('Model/ibood.js', function () {
     });
 
 
+    describe('#getLatestProductStock()', function () {
+
+        it('should return an integer', function (done) {
+
+            window.ibood.getLatestProductStock(function (stock) {
+
+                expect(stock).to.be.a('number');
+
+                done();
+
+            });
+
+        });
+
+
+        it('should return a number between 0 and 100', function (done) {
+
+            window.ibood.getLatestProductStock(function (stock) {
+
+                expect(stock).to.be.below(101);
+                expect(stock).to.be.above(-1);
+
+                done();
+
+            });
+
+        });
+
+    });
+
+
     describe('#isHunt()', function () {
 
         it('should return a boolean', function (done) {

@@ -5,6 +5,8 @@
     "use strict";
 
     window.ibood = {
+
+        ishunt: false,
         lastProduct: {},
 
         /**
@@ -67,10 +69,37 @@
                         url: url
                     };
 
-                    // Send the data back to the caller
-                    if (typeof callback === 'function') {
-                        callback(offer);
-                    }
+
+                    // Do we also want to display the stock?
+                    chrome.extension.getBackgroundPage().settings.get('displayStock', function (displayStock) {
+
+                        // Only load the stock when the option is enabled and a hunt is going on
+                        if (!displayStock || !window.ibood.ishunt) {
+
+                            // Send the data back to the caller
+                            if (typeof callback === 'function') {
+                                callback(offer);
+                            }
+
+                        } else {
+
+                            // Load the stock data, then return the product
+                            window.ibood.getLatestProductStock(function (stock) {
+
+                                // Add the stock to the data
+                                offer.stock = stock;
+
+                                // Send the data back to the caller
+                                if (typeof callback === 'function') {
+                                    callback(offer);
+                                }
+
+                            });
+
+                        }
+
+
+                    });
 
                 };
 
@@ -82,6 +111,65 @@
                         callback(window.ibood.lastProduct);
                     } else if (typeof errorCallback === 'function') {
                         errorCallback();
+                    }
+
+                };
+
+                // Send the ajaxRequest
+                x.send();
+
+            });
+
+        },
+
+
+        /**
+         *  Get the stock for the latest product
+         */
+        getLatestProductStock: function (callback) {
+
+            // Create some variables
+            var url,
+                x = new XMLHttpRequest();
+
+            // Find out what the ibood link is we want to use
+            chrome.extension.getBackgroundPage().settings.get('country', function (country) {
+
+                // Build the url
+                url = "http://feeds.ibood.com/" + country + "/stock.json";
+
+                // Add cache bust
+                url += "?" + (new Date().getTime());
+
+                // Send the request
+                x.open('GET', url);
+
+                // Response has been received!
+                x.onload = function () {
+
+                    // Get the stock object
+                    var stockobj = JSON.parse(x.responseText)[0];
+
+                    // Find the stock for this product
+                    var stock = 0;
+                    for (var key in stockobj) {
+
+                        // Only check if the key exists
+                        if (!stockobj.hasOwnProperty(key)) {
+                            continue;
+                        }
+
+                        // If the product id matches, update the stock info
+                        if (stockobj[key][0] === window.ibood.lastProduct.id) {
+                            callback(stockobj[key][1]);
+                            break;
+                        }
+
+                    }
+
+                    // Send stock info back with the callback
+                    if (typeof callback === 'function') {
+                        callback(stock);
                     }
 
                 };
@@ -123,6 +211,9 @@
 
                     // Find out if a hunt is going on
                     isHunt = doc.querySelectorAll(".huntbeacon.homepage").length > 1;
+
+                    // Set a local backup variable
+                    window.ibood.ishunt = isHunt;
 
                     // Send the data back to the caller
                     if (typeof callback === 'function') {

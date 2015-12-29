@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    
+
     font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
     font-size: 100%;
 }
@@ -9,14 +9,14 @@ body {
     width: 350px;
     overflow: hidden;
     padding: 3px;
-    
+
     border: 3px solid #F57F27;
     text-align: center;
 }
 
 #content h1 {
     margin: 0 0 10px 0;
-    
+
     color: #3d7fba;
     font-size: 20px;
     font-weight: bold;
@@ -34,7 +34,7 @@ body {
 #content .price {
     margin-top: 10px;
     font-size: 20px;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 #content .price .price-old {
@@ -53,4 +53,30 @@ body {
 
 #content a img {
     margin-top: 10px;
+}
+
+#content .stock {
+    display: none;
+}
+
+#content .stock.visible {
+    display: block !important;
+}
+
+#content .stock .bar {
+    position: relative;
+    width: 80%;
+    height: 25px;
+    margin: 15px auto;
+
+    background-color: #ddd;
+}
+
+#content .stock .bar .value {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: #418ECA;
 }

@@ -105,6 +105,32 @@
         });
 
 
+        // Do we show stock?
+        chrome.extension.getBackgroundPage().settings.get('displayStock', function (data) {
+
+            // If the checkbox is not available, don't bother!
+            if (document.getElementById('displayStock') === null) {
+                return false;
+            }
+
+            // Fill in the field with the settings data.
+            if (data && typeof data === "boolean") {
+                document.getElementById('displayStock').checked = data;
+            }
+
+            // Add an event listener to check for changes in value
+            document.getElementById("displayStock").addEventListener("change", function (e) {
+
+                // Write the value to the settings
+                chrome.extension.getBackgroundPage().settings.set(
+                    'displayStock',
+                    e.currentTarget.checked
+                );
+
+            });
+        });
+
+
         // Get the Product alert keywords
         chrome.extension.getBackgroundPage().settings.get('productAlertKeywords', function (data) {
 

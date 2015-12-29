@@ -58,3 +58,17 @@ textarea {
     background-color: #411612;
     border-color: #411612;
 }
+
+.checkbox input[type=checkbox] {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.checkbox input[type=checkbox] + div {
+    display: inline-block;
+    user-select: none;
+}
+
+small {
+    font-size: .8em;
+}

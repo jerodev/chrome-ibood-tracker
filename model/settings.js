@@ -11,9 +11,9 @@
             "checkInterval": 3e5,
             "checkIntervalHunt": 8e3,
             "country": "be",
+            "displayStock": false,
             "productAlertDirectOrder": false,
-            "productAlertKeywords": [],
-            "showHuntAvailability": false
+            "productAlertKeywords": []
         },
 
         // Local copy of the settings
