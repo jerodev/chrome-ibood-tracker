@@ -81,8 +81,8 @@
             // Create the options object
             var options = {};
             options.type = imageblob === undefined ? 'basic' : 'image';
-            options.title = title;
-            options.message = message;
+            options.title = String(title);
+            options.message = String(message);
             options.iconUrl = "../images/icon-128.png";
 
             // Add an image if we use images

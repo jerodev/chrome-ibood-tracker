@@ -45,6 +45,12 @@
                 // Response has been received!
                 x.onload = function () {
 
+                    // Make sure the request was valid!
+                    if (x.status != 200) {
+                        x.onerror();
+                        return;
+                    }
+
                     // Create variables
                     var data = JSON.parse(x.responseText),
                         offer = {};
@@ -106,13 +112,67 @@
                 // Ajax error occured
                 x.onerror = function () {
 
-                    // Execute the error callback
-                    if (typeof callback === 'function' && window.ibood.lastProduct.hasOwnProperty('title')) {
-                        callback(window.ibood.lastProduct);
-                    } else if (typeof errorCallback === 'function') {
-                        errorCallback();
-                    }
+                    // It seems the request was not valid.
+                    // Use website scraping as a fallback.
+                    var offer = {},
+                        url = "https://www.ibood.com/" + country + "/nl/",
+                        xf = new XMLHttpRequest();
+                    xf.open('GET', url);
 
+                    xf.onload = function () {
+
+                        // Make sure the request was valid!
+                        if (xf.status != 200) {
+                            xf.onerror();
+                            return;
+                        }
+
+                        // We have a response, start scraping
+                        var dom = document.implementation.createHTMLDocument("scrapeDOM");
+                            dom.documentElement.innerHTML = x.responseText;
+
+                        // Set the data
+                        offer.id = dom.querySelectorAll(".dropdown-primary")[0].getAttribute("data-offer-id");
+                        offer.title = dom.querySelectorAll("h3")[0].textContent;
+                        offer.image = dom.querySelectorAll(".dropdown-primary img")[0].getAttribute("src");
+                        offer.price_old = dom.querySelectorAll(".old-price")[0].textContent.replace(/[^\d]/g, "") / 100;
+                        offer.price_new = dom.querySelectorAll(".new-price")[0].textContent.replace(/[^\d]/g, "") / 100;
+                        offer.url = dom.querySelectorAll(".dropdown-primary a")[0].href;
+
+                        // Make sure the image url is correct
+                        if (offer.image.substr(0, 2) == "//") {
+                            offer.image = "http:" + offer.image;
+                        }
+
+                        // Format the prices
+                        offer.price_new = ("€ " + offer.price_new).replace(".", ",");
+                        offer.price_old = ("€ " + offer.price_old).replace(".", ",");
+
+                        // Keep data about the last website scrape.
+                        offer.scrape = {
+                            timestamp: new Date().getTime(),
+                            url: offer.url
+                        };
+
+                        // Send the data back to the caller
+                        if (typeof callback === 'function') {
+                            callback(offer);
+                        }
+                    };
+
+                    xf.onerror = function () {
+
+                        // Still no luck!
+                        // Execute the error callback
+                        if (typeof callback === 'function' && window.ibood.lastProduct.hasOwnProperty('title')) {
+                            callback(window.ibood.lastProduct);
+                        } else if (typeof errorCallback === 'function') {
+                            errorCallback();
+                        }
+
+                    };
+
+                    xf.send();
                 };
 
                 // Send the ajaxRequest
