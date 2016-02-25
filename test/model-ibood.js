@@ -11,6 +11,7 @@ var expect = require('expect.js');
 require('../model/ibood.js');
 
 describe('Model/ibood.js', function () {
+    this.timeout(1e4);
 
     describe('#getLatestProduct()', function () {
 

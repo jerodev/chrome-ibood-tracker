@@ -174,8 +174,10 @@
 
                     xf.send();
                 };
+                x.ontimeout = x.onerror;
 
                 // Send the ajaxRequest
+                x.timeout = 4e3;
                 x.send();
 
             });
@@ -233,8 +235,10 @@
                     }
 
                 };
+                x.ontimeout = x.onerror;
 
                 // Send the ajaxRequest
+                x.timeout = 4e3;
                 x.send();
 
             });
