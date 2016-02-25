@@ -60,14 +60,25 @@
         loadSettings: function (callback) {
 
             // Get the settings from the chrome api
-            chrome.storage.sync.get(window.settings.storageKey, function (data) {
+            chrome.storage.sync.get(function (data) {
+
+                // Get the correct key
+                if (data.hasOwnProperty(window.settings.storageKey)) {
+                  data = data[window.settings.storageKey];
+                }
 
                 // Is this the first time it's loaded? Add the default data.
-                if (window.settings.settings.country === undefined) {
-                    // Set the default data
-                    data = window.settings.defaultSettings;
+                var newdata = false;
+                for (var key in window.settings.defaultSettings) {
+                  if (!data.hasOwnProperty(key)) {
+                    data[key] = window.settings.defaultSettings[key];
+                    newdata = true;
+                  }
+                }
 
-                    // Store the default data
+                // If data has changed, save the new object
+                if (newdata) {
+                    // Store the new data object
                     window.settings.storeSettings(data);
                 }
 
