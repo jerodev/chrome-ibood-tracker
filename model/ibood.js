@@ -111,6 +111,9 @@
 
                 // Ajax error occured
                 x.onerror = function () {
+		
+		    // Abort the request to prevent the request from running twice
+		    x.abort();
 
                     // It seems the request was not valid.
                     // Use website scraping as a fallback.
