@@ -51,7 +51,7 @@
 
                         }
                     });
-                }
+                };
 
                 // Build the url
                 url = "http://feeds.ibood.com/" + country + "/offer.json";
