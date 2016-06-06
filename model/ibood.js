@@ -1,5 +1,4 @@
 /* global chrome */
-
 (function () {
 
     "use strict";
@@ -20,6 +19,39 @@
 
             // Find out what the ibood link is we want to use
             chrome.extension.getBackgroundPage().settings.get('country', function (country) {
+
+                // A function to load the stock
+                var loadStock = function (callback, offer) {
+
+                    // Do we also want to display the stock?
+                    chrome.extension.getBackgroundPage().settings.get('displayStock', function (displayStock) {
+
+                        // Only load the stock when the option is enabled and a hunt is going on
+                        if (!displayStock || !window.ibood.ishunt) {
+
+                            // Send the data back to the caller
+                            if (typeof callback === 'function') {
+                                callback(offer);
+                            }
+
+                        } else {
+
+                            // Load the stock data, then return the product
+                            window.ibood.getLatestProductStock(function (stock) {
+
+                                // Add the stock to the data
+                                offer.stock = stock;
+
+                                // Send the data back to the caller
+                                if (typeof callback === 'function') {
+                                    callback(offer);
+                                }
+
+                            });
+
+                        }
+                    });
+                }
 
                 // Build the url
                 url = "http://feeds.ibood.com/" + country + "/offer.json";
@@ -57,9 +89,9 @@
 
                     // Parse the price and image data
                     var priceData = document.implementation.createHTMLDocument("priceData");
-                        priceData.documentElement.innerHTML = data.Price;
+                    priceData.documentElement.innerHTML = data.Price;
                     var imageData = document.implementation.createHTMLDocument("imageData");
-                        imageData.documentElement.innerHTML = data.Image;
+                    imageData.documentElement.innerHTML = data.Image;
 
                     // Scrape required data from website
                     offer.id = data.Id;
@@ -75,45 +107,16 @@
                         url: url
                     };
 
-
-                    // Do we also want to display the stock?
-                    chrome.extension.getBackgroundPage().settings.get('displayStock', function (displayStock) {
-
-                        // Only load the stock when the option is enabled and a hunt is going on
-                        if (!displayStock || !window.ibood.ishunt) {
-
-                            // Send the data back to the caller
-                            if (typeof callback === 'function') {
-                                callback(offer);
-                            }
-
-                        } else {
-
-                            // Load the stock data, then return the product
-                            window.ibood.getLatestProductStock(function (stock) {
-
-                                // Add the stock to the data
-                                offer.stock = stock;
-
-                                // Send the data back to the caller
-                                if (typeof callback === 'function') {
-                                    callback(offer);
-                                }
-
-                            });
-
-                        }
-
-
-                    });
+                    // Load the stock if needed
+                    loadStock(callback, offer);
 
                 };
 
                 // Ajax error occured
                 x.onerror = function () {
-		
-		    // Abort the request to prevent the request from running twice
-		    x.abort();
+
+                    // Abort the request to prevent the request from running twice
+                    x.abort();
 
                     // It seems the request was not valid.
                     // Use website scraping as a fallback.
@@ -132,7 +135,7 @@
 
                         // We have a response, start scraping
                         var dom = document.implementation.createHTMLDocument("scrapeDOM");
-                            dom.documentElement.innerHTML = x.responseText;
+                        dom.documentElement.innerHTML = xf.responseText;
 
                         // Set the data
                         offer.id = dom.querySelectorAll(".dropdown-primary")[0].getAttribute("data-offer-id");
@@ -157,10 +160,8 @@
                             url: offer.url
                         };
 
-                        // Send the data back to the caller
-                        if (typeof callback === 'function') {
-                            callback(offer);
-                        }
+                        // Load the stock if needed
+                        loadStock(callback, offer);
                     };
 
                     xf.onerror = function () {
@@ -177,6 +178,7 @@
 
                     xf.send();
                 };
+
                 x.ontimeout = x.onerror;
 
                 // Send the ajaxRequest
@@ -201,10 +203,10 @@
             chrome.extension.getBackgroundPage().settings.get('country', function (country) {
 
                 // Build the url
-                url = "http://feeds.ibood.com/" + country + "/stock.json";
+                url = "http://feeds.ibood.com/" + country + "/stock.jsonp?c=s&_=";
 
                 // Add cache bust
-                url += "?" + (new Date().getTime());
+                url += (new Date().getTime());
 
                 // Send the request
                 x.open('GET', url);
@@ -212,8 +214,9 @@
                 // Response has been received!
                 x.onload = function () {
 
-                    // Get the stock object
-                    var stockobj = JSON.parse(x.responseText)[0];
+                    // Find the stockobject
+                    var stockobj = x.responseText;
+                    stockobj = JSON.parse(stockobj.replace(/^.*?s\((\[.*?\])\);$/, '$1'))[0];
 
                     // Find the stock for this product
                     var stock = 0;
@@ -225,7 +228,7 @@
                         }
 
                         // If the product id matches, update the stock info
-                        if (stockobj[key][0] === window.ibood.lastProduct.id) {
+                        if (stockobj[key][0] == window.ibood.lastProduct.id) {
                             callback(stockobj[key][1]);
                             break;
                         }
