@@ -26,7 +26,7 @@ describe('Model/ibood.js', function () {
 
             });
 
-        });
+        }).timeout(2e4);
 
 
         // Test if the object contains an url, an image and a price

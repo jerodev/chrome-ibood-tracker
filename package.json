@@ -4,7 +4,7 @@
   "description": "Deze plugin geeft notificaties weer met de laatste ibood actie. Deze notificaties werken ook tijdens een ibood hunt.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test-jshint",
+    "test": "npm run test-jshint && npm run test-mocha",
     "test-jshint": "jshint **/*.js",
     "test-mocha": "mocha"
   },

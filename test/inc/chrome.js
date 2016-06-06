@@ -25,9 +25,9 @@ module.exports = {
 
         sync: {
 
-            get: function (key, callback) {
+            get: function (callback) {
 
-                if (key && typeof callback === 'function') {
+                if (typeof callback === 'function') {
                     callback({});
                 }
 
