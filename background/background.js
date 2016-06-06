@@ -58,7 +58,11 @@
                 });
 
                 // Display a message with the newest product
-                sendNotification(data.title, data.price_new, data.image);
+                chrome.extension.getBackgroundPage().settings.get('enableNotifications', function (doShow) {
+                    if (doShow) {
+                        sendNotification(data.title, data.price_new, data.image);
+                    }
+                });
             }
 
         });

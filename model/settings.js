@@ -12,6 +12,7 @@
             "checkIntervalHunt": 8e3,
             "country": "be",
             "displayStock": false,
+            "enableNotifications": true,
             "productAlertDirectOrder": false,
             "productAlertKeywords": []
         },

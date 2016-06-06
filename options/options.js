@@ -131,6 +131,32 @@
         });
 
 
+        // Do we show notifications
+        chrome.extension.getBackgroundPage().settings.get('enableNotifications', function (data) {
+
+            // If the checkbox is not available, don't bother!
+            if (document.getElementById('enableNotifications') === null) {
+                return false;
+            }
+
+            // Fill in the field with the settings data.
+            if (data && typeof data === "boolean") {
+                document.getElementById('enableNotifications').checked = data;
+            }
+
+            // Add an event listener to check for changes in value
+            document.getElementById("enableNotifications").addEventListener("change", function (e) {
+
+                // Write the value to the settings
+                chrome.extension.getBackgroundPage().settings.set(
+                    'enableNotifications',
+                    e.currentTarget.checked
+                );
+
+            });
+        });
+
+
         // Get the Product alert keywords
         chrome.extension.getBackgroundPage().settings.get('productAlertKeywords', function (data) {
 
