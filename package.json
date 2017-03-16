@@ -1,0 +1,22 @@
+{
+  "name": "chrome-ibood-tracker",
+  "version": "2.0.0",
+  "description": "Deze plugin geeft een kader weer met de laatste ibood actie wanneer deze wijzigt. Dit werkt ook tijdens een ibood hunt.",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerodev/chrome-ibood-tracker.git"
+  },
+  "author": "Jeroen Deviaene",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jerodev/chrome-ibood-tracker/issues"
+  },
+  "homepage": "https://github.com/jerodev/chrome-ibood-tracker#readme",
+  "devDependencies": {
+    "typescript": "^2.2.1"
+  }
+}
