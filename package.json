@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/jerodev/chrome-ibood-tracker#readme",
   "devDependencies": {
-    "typescript": "^2.2.1"
+    "mock-browser": "^0.92.12",
+    "typescript": "^2.2.1",
+    "xmlhttprequest": "^1.8.0"
   }
 }

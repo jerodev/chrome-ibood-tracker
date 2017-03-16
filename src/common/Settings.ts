@@ -14,25 +14,24 @@ export class Settings {
 
 
     /**
-     *  Load the Chrome settings before starting
-     */
-    constructor() {
-        this.loadSettings(function () {
-            Settings.Instance.settingsLoaded = true;
-        });
-    }
-
-
-    /**
      *  Get a settings value by its key
      */
-    public get(key: string): any {
-        
-        if (this.items.hasOwnProperty(key))
-            return this.items[key];
+    async pull(key: string): Promise<any> {
+        return new Promise<any>(resolve => {
+            
+            this.loadSettings(() => {
 
-        return null;
+                // Load the data
+                var data: any = null;
+                if (Settings.Instance.items.hasOwnProperty(key))
+                    data = this.items[key];
 
+                // Send the data back
+                resolve(data);
+
+            });
+
+        });
     }
 
 
@@ -48,8 +47,8 @@ export class Settings {
     /**
      *  Load the settings using the chrome api
      */
-    private loadSettings(callBack: Function) : void {
-        
+    private loadSettings(callBack: Function): void {
+
         // No need to load the settings twice
         if (this.settingsLoaded)
             callBack();
@@ -57,6 +56,7 @@ export class Settings {
         // Load the settings using the chrome api
         chrome.storage.sync.get(function (data) {
             Settings.Instance.items = data;
+            Settings.Instance.settingsLoaded = true;
             callBack();
         });
 
