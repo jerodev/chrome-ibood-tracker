@@ -3,6 +3,7 @@ import { Settings } from "./Settings";
 
 export class Ibood {
     private static _instance: Ibood;
+    private isHuntNow: boolean = false;
 
     public constructor() {
         // Placeholder, might be removed eventualy
@@ -12,18 +13,16 @@ export class Ibood {
     /**
      *  Use a single settings instance to work with
      */
-    public static get Instance()
-    {
+    public static get Instance() {
         return this._instance || (this._instance = new this());
     }
 
 
-    async updateDeals(callBack: Function = null): Promise<void> {
+    async updateDeals(callBack: Function): Promise<void> {
         
         // Prepare some variables
         var country: string = await Settings.Instance.pull("country");
         var url: string = `https://www.ibood.com/${country}/nl/all-deals/`;
-        //var url: string = "https://www.ibood.com/be/nl/all-deals/";
         var request: XMLHttpRequest = new XMLHttpRequest();
 
         // Prepare the request
@@ -57,14 +56,52 @@ export class Ibood {
                 offers.push(offer);
             }
 
-            console.log(offers);
-
-
+            // Do the callback!
+            callBack(offers);
 
         }
 
         // Send the request!
         request.send();
+
+    }
+
+
+    async isHunt(callBack: Function = null): Promise<boolean> {
+
+        return new Promise<boolean>(async resolve => {
+            
+            // Prepare some variables
+            var country: string = await Settings.Instance.pull("country");
+            var url: string = `https://www.ibood.com/${country}/nl/`;
+            var request: XMLHttpRequest = new XMLHttpRequest();
+
+            // Prepare the request
+            request.open("GET", url);
+            request.onload = () => {
+
+                // Parse the DOM
+                var doc = document.implementation.createHTMLDocument("example");
+                doc.documentElement.innerHTML = request.responseText;
+
+                // Find out if a hunt is going on
+                var isHunt: boolean = doc.querySelectorAll(".huntbeacon.homepage").length > 1;
+
+                // Set the local backup
+                Ibood.Instance.isHuntNow = isHunt;
+
+                // Resolve the Promise
+                resolve(isHunt);
+
+                // If you realy wanted a callback, we can do that too
+                if (callBack !== null)
+                    callBack(isHunt);
+
+            };
+
+            request.send();
+            
+        });
 
     }
 

@@ -16,10 +16,10 @@
 
     "background": {
         "scripts": [
-            "model/computer.js",
-            "model/ibood.js",
-            "model/settings.js",
-            "background/background.js"
+            "dist/background.js",
+            "dist/common/Settings.js",
+            "dist/common/Models.js",
+            "dist/common/Ibood.js",
         ]
     },
 

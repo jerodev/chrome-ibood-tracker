@@ -16,7 +16,7 @@ export class Settings {
     /**
      *  Get a settings value by its key
      */
-    async pull(key: string): Promise<any> {
+    async pull(key: string, callBack: Function = null): Promise<any> {
         return new Promise<any>(resolve => {
             
             this.loadSettings(() => {
@@ -29,6 +29,10 @@ export class Settings {
                 // Send the data back
                 resolve(data);
 
+                // If you realy want a callback, we can do that too
+                if (callBack != null)
+                    callBack(data);
+
             });
 
         });
@@ -38,8 +42,7 @@ export class Settings {
     /**
      *  Use a single settings instance to work with
      */
-    public static get Instance()
-    {
+    public static get Instance() {
         return this._instance || (this._instance = new this());
     }
 
@@ -55,9 +58,15 @@ export class Settings {
 
         // Load the settings using the chrome api
         chrome.storage.sync.get(function (data) {
-            Settings.Instance.items = data;
+            
+            // Merge items with default items
+            for (var key in data)
+                Settings.Instance.items[key] = data[key];
+
+            // Settings are loaded, go back
             Settings.Instance.settingsLoaded = true;
             callBack();
+
         });
 
     }
